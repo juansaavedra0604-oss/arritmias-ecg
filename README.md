@@ -63,13 +63,14 @@ Cifras de la literatura: tabla 7 de Huang et al. (2014), mismo protocolo inter-p
 
 \* 0,785 sin el paciente 207, cuyo episodio de flutter ventricular de unos 100 s deja intervalos RR extremos. Recortar los RR a un rango fisiológico mueve el F1 del Adaline en DS2 de 0,729 a 0,734. RBF: promedio de 5 semillas (validación: semilla 0). Costo: Adaline 258 parámetros; RBF 13.204.
 
-- El problema no es linealmente separable: en el SOM, el 41 % de los latidos S cae en neuronas dominadas por otra clase.
+- El problema no es linealmente separable: un programa lineal (Bennett y Mangasarian, 1992) sobre DS1 tiene óptimo positivo para los pares N–S, N–V y S–V, es decir, ningún hiperplano separa ningún par sin errores, ni siquiera con los datos de entrenamiento. Aun en DS1, el mejor hiperplano deja del lado de N el 24,3 % de los S y el 14,6 % de los V; en DS2, la frontera N–S deja del lado de N el 83,0 % de los S (sección 7d del cuaderno de la fase 2).
+- En el SOM, el 41 % de los latidos S cae en neuronas donde predominan latidos de otra clase (11 % si los conteos se normalizan por clase para descontar el desbalance). S es la clase más mezclada.
 - La RBF tiene mucho menos error de entrenamiento, pero en prueba su error balanceado casi duplica el del Adaline: sus neuronas locales memorizan a los pacientes de entrenamiento. Por eso la entrega 2 usa una CNN 1D regularizada.
 
 ## Cómo correrlo
 
 1. Abrir `notebooks/fase0_mitbih.ipynb` en Google Colab (*Archivo → Abrir cuaderno → GitHub*) y ejecutar todo. Descarga MIT-BIH (~100 MB), procesa los latidos y guarda `mitbih_ds1_ds2.npz`.
-2. Abrir `notebooks/fase2_modelos.ipynb` en la misma sesión y ejecutar todo (~10 min). Si no encuentra el `.npz`, corre la fase 0 por su cuenta.
+2. Abrir `notebooks/fase2_modelos.ipynb` en la misma sesión y ejecutar todo (~15 min; la prueba de separabilidad de la sección 7d tarda unos 5). Si no encuentra el `.npz`, corre la fase 0 por su cuenta.
 3. Al final de la fase 2 está la **demostración** (sección 7b): toma un paciente de DS2, detecta los picos R automáticamente (sin usar las anotaciones), clasifica sus latidos y grafica un tramo con la etiqueta real y la predicha. Para el paciente 200: 99,9 % de latidos detectados y 90,9 % bien clasificados.
 
 ## Estructura
@@ -90,6 +91,7 @@ data/        datos locales (ignorados por git)
 
 ## Referencias
 
+- K. P. Bennett y O. L. Mangasarian, "Robust linear programming discrimination of two linearly inseparable sets", *Optimization Methods and Software*, vol. 1, n.º 1, pp. 23–34, 1992.
 - P. de Chazal, M. O'Dwyer y R. B. Reilly, "Automatic classification of heartbeats using ECG morphology and heartbeat interval features", *IEEE Trans. Biomed. Eng.*, 2004.
 - S. Kiranyaz, T. Ince y M. Gabbouj, "Real-time patient-specific ECG classification by 1-D convolutional neural networks", *IEEE Trans. Biomed. Eng.*, vol. 63, n.º 3, pp. 664–675, 2016.
 - Y. LeCun, J. S. Denker y S. A. Solla, "Optimal Brain Damage", *Advances in Neural Information Processing Systems 2*, 1990.
