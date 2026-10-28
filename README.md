@@ -37,10 +37,21 @@ Los datos **no se suben al repositorio**: el cuaderno los descarga solo.
 
 Los conteos coinciden con los publicados con menos de 0,1 % de diferencia (se omiten el primer y el último latido de cada registro).
 
+## Resultados de la entrega 1 (DS2, pacientes nunca vistos)
+
+| Modelo | S: Se / PP | V: Se / PP | F1 macro |
+| --- | --- | --- | --- |
+| Adaline (pseudoinversa) | 76,7 % / 35,5 % | 92,6 % / 63,4 % | 0,729 |
+| RBF (50 centros por clase) | 52,6 % / 30,0 % | 84,4 % / 53,4 % | 0,663 ± 0,011 |
+| de Chazal 2004 (referencia) | 75,9 % / 38,5 % | 77,7 % / 81,9 % | — |
+
+- El problema no es linealmente separable: en el SOM, el 41 % de los latidos S cae en neuronas dominadas por otra clase.
+- La RBF gana en la validación cruzada sobre DS1, pero pierde en DS2: sus neuronas locales memorizan a los pacientes de entrenamiento. Por eso la entrega 2 usa una CNN 1D regularizada.
+
 ## Cómo correrlo
 
-1. Abrir `notebooks/fase0_mitbih.ipynb` en Google Colab (*Archivo → Abrir cuaderno → GitHub*).
-2. *Entorno de ejecución → Ejecutar todas*. Descarga MIT-BIH (~100 MB), procesa los latidos y guarda `mitbih_ds1_ds2.npz`.
+1. Abrir `notebooks/fase0_mitbih.ipynb` en Google Colab (*Archivo → Abrir cuaderno → GitHub*) y ejecutar todo. Descarga MIT-BIH (~100 MB), procesa los latidos y guarda `mitbih_ds1_ds2.npz`.
+2. Abrir `notebooks/fase2_modelos.ipynb` en la misma sesión y ejecutar todo (~10 min). Si no encuentra el `.npz`, corre la fase 0 por su cuenta.
 
 ## Estructura
 
@@ -54,7 +65,7 @@ data/        datos locales (ignorados por git)
 
 - [x] Fase 0: entorno, lectura de MIT-BIH, resumen de papers
 - [x] Fase 1 (adelantada): filtrado, segmentación, características RR, división DS1/DS2
-- [ ] Fase 2: Adaline, SOM y RBF
+- [x] Fase 2: Adaline, SOM y RBF
 - [ ] Fase 3: CNN 1D
 - [ ] Fase 4: poda con OBD
 
