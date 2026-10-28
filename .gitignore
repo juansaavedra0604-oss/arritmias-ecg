@@ -1,0 +1,16 @@
+# Datos: se descargan con el cuaderno, no se suben
+mitdb/
+data/*
+!data/.gitkeep
+*.npz
+*.npy
+
+# Modelos entrenados
+*.h5
+*.keras
+*.pt
+
+# Python y Jupyter
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
