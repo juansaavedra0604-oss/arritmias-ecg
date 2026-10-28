@@ -43,10 +43,28 @@ Los conteos coinciden con los publicados con menos de 0,1 % de diferencia (se om
 | --- | --- | --- | --- |
 | Adaline (pseudoinversa) | 76,7 % / 35,5 % | 92,6 % / 63,4 % | 0,729 |
 | RBF (50 centros por clase) | 52,6 % / 30,0 % | 84,4 % / 53,4 % | 0,663 ± 0,011 |
-| de Chazal 2004 (referencia) | 75,9 % / 38,5 % | 77,7 % / 81,9 % | — |
+| de Chazal et al., 2004 | 75,9 % / 38,5 % | 77,7 % / 81,9 % | — |
+| Llamedo y Martínez, 2011 | 76,5 % / 41,3 % | 82,9 % / 88,0 % | — |
+| Mar et al., 2011 | 83,2 % / 33,5 % | 86,8 % / 75,9 % | — |
+| Huang et al., 2014 | 91,1 % / 42,2 % | 93,9 % / 90,9 % | — |
+
+Cifras de la literatura: tabla 7 de Huang et al. (2014), mismo protocolo inter-paciente.
+
+### Tabla de errores
+
+| Métrica | Modelo | Entrenamiento (DS1) | Validación (paciente fuera) | Prueba (DS2) |
+| --- | --- | --- | --- | --- |
+| Error de clasificación (%) | Adaline | 12,7 | 21,3 | 9,5 |
+| | Red RBF | 2,9 | 11,9 | 10,1 |
+| Error balanceado (%) | Adaline | 13,5 | 39,5 | 13,3 |
+| | Red RBF | 5,2 | 28,2 | 23,7 |
+| MSE ponderado (costo) | Adaline | 0,365 | 9,127* | 0,437 |
+| | Red RBF | 0,174 | 0,711 | 0,616 |
+
+\* 0,785 sin el paciente 207, cuyo episodio de flutter ventricular de unos 100 s deja intervalos RR extremos. Recortar los RR a un rango fisiológico mueve el F1 del Adaline en DS2 de 0,729 a 0,734. RBF: promedio de 5 semillas (validación: semilla 0). Costo: Adaline 258 parámetros; RBF 13.204.
 
 - El problema no es linealmente separable: en el SOM, el 41 % de los latidos S cae en neuronas dominadas por otra clase.
-- La RBF gana en la validación cruzada sobre DS1, pero pierde en DS2: sus neuronas locales memorizan a los pacientes de entrenamiento. Por eso la entrega 2 usa una CNN 1D regularizada.
+- La RBF tiene mucho menos error de entrenamiento, pero en prueba su error balanceado casi duplica el del Adaline: sus neuronas locales memorizan a los pacientes de entrenamiento. Por eso la entrega 2 usa una CNN 1D regularizada.
 
 ## Cómo correrlo
 
