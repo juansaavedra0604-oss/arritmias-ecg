@@ -52,6 +52,7 @@ Los conteos coinciden con los publicados con menos de 0,1 % de diferencia (se om
 
 1. Abrir `notebooks/fase0_mitbih.ipynb` en Google Colab (*Archivo → Abrir cuaderno → GitHub*) y ejecutar todo. Descarga MIT-BIH (~100 MB), procesa los latidos y guarda `mitbih_ds1_ds2.npz`.
 2. Abrir `notebooks/fase2_modelos.ipynb` en la misma sesión y ejecutar todo (~10 min). Si no encuentra el `.npz`, corre la fase 0 por su cuenta.
+3. Al final de la fase 2 está la **demostración** (sección 7b): toma un paciente de DS2, detecta los picos R automáticamente (sin usar las anotaciones), clasifica sus latidos y grafica un tramo con la etiqueta real y la predicha. Para el paciente 200: 99,9 % de latidos detectados y 90,9 % bien clasificados.
 
 ## Estructura
 
